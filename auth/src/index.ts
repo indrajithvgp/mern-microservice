@@ -1,12 +1,17 @@
 import express from 'express'
 import chalk from 'chalk'
 import {json} from 'body-parser'
+import { currentUserRouter } from './routes/current-user'
+import { signInRouter } from './routes/signin'
+import { signOutRouter } from './routes/signout'
+import { signUpRouter } from './routes/signup'
 
 const app = express()
 app.use(json())
 
-app.get("/api/users/currentuser", (req, res) =>{
-    res.send('<h1>GET it is !!!</h1>')
-})
+app.use(currentUserRouter)
+app.use(signInRouter)
+app.use(signOutRouter)
+app.use(signUpRouter)
 
 app.listen(3000, ()=> console.log(chalk.green('Running on port 3000')))

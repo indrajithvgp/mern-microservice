@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules: 
-    - host: ticketing.dev
+    - host: 34.121.5.225
       http:
         paths: 
           - path: /api/users/?(.*)
