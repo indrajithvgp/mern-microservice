@@ -35,7 +35,7 @@ const start = async () =>{
         console.log('DATABASE CONNECTED -- MONGODB')
 
     }catch(err){
-        console.log(err)
+        console.log(err.message)
     }
     
 }
