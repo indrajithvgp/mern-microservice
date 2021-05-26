@@ -1,4 +1,5 @@
 import express, {NextFunction, Request, Response} from 'express'
+import jwt from 'jsonwebtoken'
 import {body, validationResult} from 'express-validator'
 import { DatabaseConnectionError } from '../errors/database-connection-error'
 import {User} from '../models/user'
@@ -30,6 +31,16 @@ router.post('/api/users/signup', [
     }
     const user = User.build({email, password})
     await user.save()
+
+    const userJwt = jwt.sign({
+        id: user.id,
+        email: user.email
+
+    }, 'asdf')
+
+    req.session = {
+        jwt: userJwt
+    } 
     
     res.status(201).send(user)
 
