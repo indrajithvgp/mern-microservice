@@ -2,6 +2,7 @@ import express, {NextFunction, Request, Response} from 'express'
 import jwt from 'jsonwebtoken'
 import {body, validationResult} from 'express-validator'
 import { DatabaseConnectionError } from '../errors/database-connection-error'
+import {validateRequest} from '../middlewares/validate-request'
 import {User} from '../models/user'
 import { RequestValidationError } from '../errors/request-validation-error'
 import { BadRequestError } from '../errors/bad-request-error'
@@ -16,27 +17,27 @@ router.post('/api/users/signup', [
         .trim()
         .isLength({min: 4, max: 20})
         .withMessage('Password must be within 4-20 characters')
-    ] ,async(req: Request, res: Response, next: NextFunction) => {
-
-    const errors = validationResult(req)
-    if(!errors.isEmpty()){
-            return next(new RequestValidationError(errors.array()))
-    }
+    ], validateRequest ,
+    
+    async(req: Request, res: Response, next: NextFunction) => {
+    
     const {email, password} = req.body
     
     const existingUser = User.findOne({email})
-    console.log(existingUser)
+
     if(existingUser){
         return next(new BadRequestError('Email is already in Use'))
     }
     const user = User.build({email, password})
     await user.save()
 
+    
+
     const userJwt = jwt.sign({
         id: user.id,
         email: user.email
 
-    }, 'asdf')
+    }, process.env.JWT_KEY!)
 
     req.session = {
         jwt: userJwt

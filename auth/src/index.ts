@@ -32,6 +32,9 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler)
 
 const start = async () =>{
+    if(!process.env.JWT_KEY){
+        throw new Error('error with env vars: JWT_KEY')
+    }
     try{
         await mongoose.connect('mongodb://auth-mongo-srv:27017/auth',{
             useCreateIndex: true,
