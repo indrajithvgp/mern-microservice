@@ -16,7 +16,7 @@ app.use(json())
 
 app.use(cookieSession({
     signed: false,
-    secure: true
+    secure: process.env.NODE_ENV !== 'test'
 }))
 
 app.use(currentUserRouter)
@@ -31,7 +31,5 @@ app.all('*', async (req, res, next) => {
 app.use(errorHandler)
 
 
-
-app.listen(3000, ()=> console.log(chalk.bgBlue('Running on port 3000')))
 
 export {app}
