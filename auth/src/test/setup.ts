@@ -8,6 +8,7 @@ beforeAll(async () => {
     
     process.env.JWT_KEY = "secret"
     mongo = new MongoMemoryServer()
+    jest.setTimeout(10000); 
     const mongoUri = await mongo.getUri()
 
     await mongoose.connect(mongoUri, {
@@ -29,5 +30,5 @@ beforeEach(async () => {
 afterAll(async ()=>{
     await mongo.stop()
     await mongoose.connection.close()
-
+ 
 })

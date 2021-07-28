@@ -28,7 +28,7 @@ router.post('/api/users/signin', [
     }
     const passwordMatch = await Password.compare(existingUser.password, password)
 
-    if(!passwordMatch){
+    if(!passwordMatch){ 
         return next(new BadRequestError('Invalid Credentials'))
     }
 

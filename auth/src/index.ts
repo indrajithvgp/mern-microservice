@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import {app} from './app'
 import chalk from 'chalk'
 
-const start = async () =>{
+const start = async () =>{ 
     if(!process.env.JWT_KEY){
         throw new Error('error with env vars: JWT_KEY')
     }
@@ -12,7 +12,7 @@ const start = async () =>{
             useFindAndModify: false,
             useUnifiedTopology: true,
             useNewUrlParser: true
-        })
+        }) 
         console.log('DATABASE CONNECTED -- MONGODB')
 
     }catch(err){
