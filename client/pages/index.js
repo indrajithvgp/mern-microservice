@@ -1,6 +1,6 @@
 
 
-const Home = () => {
+const LandingPage = () => {
     return (
         <div>
             Hello la..!
@@ -8,4 +8,8 @@ const Home = () => {
     )
 }
 
-export default Home
+LandingPage.getInitialProps = async()=>{
+    
+}
+
+export default LandingPage

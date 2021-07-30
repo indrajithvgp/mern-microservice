@@ -4,20 +4,20 @@ import useRequest from '../../hooks/user-request'
 import Router from 'next/router'
 
 
-export default () => {
+const SignUp = () => {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const {doRequest, errors} = useRequest({
         url: '/api/users/signup',
-        method: 'POST',
+        method: 'post',
         body: {
             email: email, password
         },
         onSuccess:()=> Router.push('/')
     })
-
+ 
     const onSubmit = async (e) => {
         e.preventDefault()
         doRequest()
@@ -39,3 +39,5 @@ export default () => {
         </form>
     )
 }
+
+export default SignUp
