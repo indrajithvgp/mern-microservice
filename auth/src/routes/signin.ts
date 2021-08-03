@@ -1,10 +1,10 @@
 import express, {NextFunction, Request, Response} from 'express'
 import {body, validationResult} from 'express-validator'
-import {validateRequest} from '../middlewares/validate-request'
+import {validateRequest} from '@i60tickets/common'
 import {User} from '../models/user'
 import jwt from 'jsonwebtoken'
-import { RequestValidationError } from '../errors/request-validation-error'
-import { BadRequestError } from '../errors/bad-request-error'
+import { RequestValidationError } from '@i60tickets/common'
+import { BadRequestError } from '@i60tickets/common'
 import { Password } from '../services/password'
 
 const router = express.Router()
