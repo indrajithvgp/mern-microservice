@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import {natsWrapper} from '../src/nats-wrapper'
 import { app } from './app';
+// import {TicketCreatedEvent} from './events/listeners/ticket-created-listener'
+// import {TicketUpdatedEvent} from './events/listeners/'
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
