@@ -19,16 +19,6 @@ stan.on('connect', async()=>{
         console.log(err)
     }
     
-
-    
-    //     const data = JSON.stringify({
-    //     id: "123",
-    //     title: "abc",
-    //     price: 200
-    // })
-    // stan.publish('ticket:created', data, ()=>{
-    //     console.log('Event published..')
-    // })
     
 })
 
