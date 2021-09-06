@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { OrderStatus } from '@cygnetops/common';
+// import { OrderStatus } from '@cygnetops/common';
+import { OrderStatus } from '@i60tickets/common';
 import { TicketDoc } from './ticket';
 
 interface OrderAttrs {

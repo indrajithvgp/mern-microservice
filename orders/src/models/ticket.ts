@@ -1,6 +1,21 @@
-import mongoose from 'mongoose';
-import { requireAuth, validateRequest, NotFoundError, OrderStatus, BadRequestError } from '@cygnetops/common';
-import {Order} from './order';
+import mongoose from "mongoose";
+// import {
+//   requireAuth,
+//   validateRequest,
+//   NotFoundError,
+//   OrderStatus,
+//   BadRequestError,
+// } from "@cygnetops/common";
+
+import {
+  requireAuth,
+  validateRequest,
+  NotFoundError,
+  OrderStatus,
+  BadRequestError,
+} from "@i60tickets/common";
+
+import { Order } from "./order";
 
 interface TicketAttrs {
   title: string;
@@ -39,25 +54,24 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
-ticketSchema.methods.isReserved = async function(){
-  
-    const existingOrder = await Order.findOne({
-      ticket: this as any,
-      status:{ 
-        $in:[
-          OrderStatus.Created,
-          OrderStatus.AwaitingPayment,
-          OrderStatus.Complete,
-        ]
-      }
-    })
-    return !!existingOrder
-}
+ticketSchema.methods.isReserved = async function () {
+  const existingOrder = await Order.findOne({
+    ticket: this as any,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete, 
+      ],
+    },
+  });
+  return !!existingOrder;
+};
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
 
-const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', ticketSchema);
+const Ticket = mongoose.model<TicketDoc, TicketModel>("Ticket", ticketSchema);
 
 export { Ticket };
