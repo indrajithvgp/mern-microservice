@@ -39,3 +39,5 @@ it("it returns an error if ticket is already reserved", async () => {
     .expect(400);
 
 });
+
+it.todo('emits an order created event')
