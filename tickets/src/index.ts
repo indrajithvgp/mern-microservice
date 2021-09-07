@@ -25,7 +25,7 @@ const start = async () => {
     await natsWrapper.connect('ticketing', 'random', 'http://nats-srv:4222')
     
     natsWrapper.client.on('close', ()=>{
-            console.log('NATS Connection failed')
+            console.log('NATS Connection failed..')
             process.exit()
         })
         process.on('SIGINT', ()=> natsWrapper.client.close())
