@@ -9,10 +9,12 @@ export class TicketCreatedListener extends Listener<TicketCreatedEvent> {
 
   async onMessage(data: TicketCreatedEvent['data'], msg: Message) {
     const { title, price } = data;
+    
 
     const ticket = Ticket.build({
       title,
       price,
+      id: 9,
     });
     await ticket.save();
 
