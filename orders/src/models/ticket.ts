@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 //   OrderStatus,
 //   BadRequestError,
 // } from "@cygnetops/common";
+import {updateIfCurrentPlugin} from "mongoose-update-if-current"
 
 import {
   requireAuth,
@@ -26,11 +27,13 @@ interface TicketAttrs {
 export interface TicketDoc extends mongoose.Document {
   title: string;
   price: number;
+  version: number;
   isReserved(): Promise<boolean>;
 }
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
   build(attrs: TicketAttrs): TicketDoc;
+  findByEvent(event: {id:string; version:number}): Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new mongoose.Schema(
@@ -55,6 +58,10 @@ const ticketSchema = new mongoose.Schema(
   }
 );
 
+ticketSchema.set('versionKey', 'version')
+
+ticketSchema.plugin(updateIfCurrentPlugin)
+
 ticketSchema.methods.isReserved = async function () {
   const existingOrder = await Order.findOne({
     ticket: this as any,
@@ -68,6 +75,13 @@ ticketSchema.methods.isReserved = async function () {
   });
   return !!existingOrder;
 };
+
+ticketSchema.statics.findByEvent = (event:{id: string, version: number})=>{
+  return Ticket.findOne({
+    _id: event.id,
+    version: event.version - 1
+  })
+}
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket({
