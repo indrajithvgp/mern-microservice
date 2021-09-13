@@ -26,3 +26,11 @@ spec:
                 key: JWT_KEY
           - name: REDIS_HOST
             value: expiration-redis-srv
+          - name: NATS_URL
+            value: 'https://nats-srv:4222'
+          - name: NATS_CLIENT_ID
+            valueFrom: 
+              fieldRef:
+                fieldPath: metadata.name
+          - name: NATS_CLUSTER_ID
+            value: ticketing
