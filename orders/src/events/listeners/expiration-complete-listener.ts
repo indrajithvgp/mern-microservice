@@ -4,7 +4,7 @@ import {
   Subjects,
 //   OrderCancelledPublisher,
   OrderStatus,
-} from "@sgtickets/common";
+} from "@i60tickets/common";
 import { Message } from "node-nats-streaming";
 import { queueGroupName } from "./queue-group-name";
 import { Order } from "../../models/order";
