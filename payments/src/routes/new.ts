@@ -7,7 +7,7 @@ import {
   NotAuthorizedError,
   NotFoundError,
   OrderStatus,
-} from '@cygnetops/common';
+} from '@i60tickets/common';
 import { Order } from '../models/order';
 import { stripe } from '../stripe';
 
